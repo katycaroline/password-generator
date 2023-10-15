@@ -17,8 +17,8 @@ function writePassword() {
 }
 
 function generatePassword(){
-  var password = "";
-  var passwordOptions = "";
+  var password = [];
+  var passwordOptions = [];
 
 
   // Makes a variable called passwordLength that is a number between 8-128 based on user input. 
@@ -33,31 +33,34 @@ function generatePassword(){
     return; 
   }
 
-  // Various window confirms asking what the user would like to include in their password. If the user confirms, it concatenates the arrays into the passwordOptions variable. 
+  // Various window confirms asking what the user would like to include in their password. If the user confirms, it concatenates the arrays into the passwordOptions array. 
   var lowerCaseChoice = window.confirm("Would you like your password to have lowercase characters?");
   if(lowerCaseChoice === true){
-    passwordOptions = passwordOptions.concat(lowerCase, passwordOptions);
+    passwordOptions = passwordOptions.concat(lowerCase);
   }
 
   var upperCaseChoice = window.confirm("Would you like your password to have uppercase characters?");
   if(upperCaseChoice === true){
-    passwordOptions = passwordOptions.concat(upperCase, passwordOptions);
+    passwordOptions = passwordOptions.concat(upperCase);
   }
 
   var numberChoice = window.confirm("Would you like your password to have numbers?");
   if(numberChoice === true){
-    passwordOptions = passwordOptions.concat(numbers, passwordOptions);
+    passwordOptions = passwordOptions.concat(numbers);
   }
 
   var specialChoice = window.confirm("Would you like your password to have special characters?");
   if(specialChoice === true){
-    passwordOptions = passwordOptions.concat(special, passwordOptions);
+    passwordOptions = passwordOptions.concat(special);
   }
 
-// Takes passwordOptions and randomly selects elements from it, then adds them to the string "password".
+// Takes passwordOptions and randomly selects elements from it, then adds them to the array "password".
   for(var i = 0; i < passwordLength; i++){
     password = password.concat(passwordOptions[Math.floor(Math.random() * (passwordOptions.length))]);
   }
+  // For some reason the password displays with commas separating every character. Changing the array to a string, then deleting all the commas fixes that. 
+  password = password.toString();
+  password = password.replaceAll(",","");
   return password; 
 }
 
